@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Human Body Monitoring</title>
+    <link rel="stylesheet" href="RemoteHumanBodyMonitoring.css">
+    
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Remote Human Body Monitoring</h1>
+            <p class="group">Group1:張家芯、楊竣宇、施博仁、張宸哲</p>
+            <p>現今醫療技術可透過對象身上的穿戴式傳感器以蒐集該對象的各項身體數據，例如:心跳、體溫、血糖或血壓等。<br>藉由穿戴式裝置不斷的存取和回傳獲得穿戴者的大量資料，再將此資料交由AI分析和預測結果，藉著AI快速處理大量數據辨別差異，可及時發現問題並做診治。</p>
+        </div>
+    </header>
+    <main>
+        <div class="content-container">
+            <div class="left-column">
+                <h2>流程</h2>
+                <ul class="timeline">
+                    <li><b>數據蒐集</b>: <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp利用穿戴式設備(如智慧手錶)、貼片或相關醫療設備蒐集數據，以心臟監測為例，智慧手錶可以透過貼附在皮膚上的電極取得數據並生成心電圖，也可透過震動感應器取得血壓數據等等。</li><br>
+                    <li><b>數據上傳</b>: <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp短距離主要以藍芽傳到電腦或手機，讓使用者平時便可直接觀察，長距離則透過網路上傳至雲端，再由使用者或醫療機關取得該數據或直接在雲端平台上做分析。</li><br>
+                    <li><b>數據預處理</b>: <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp預處理主要分成以下三種:
+                        <ul>
+                            <li>去噪: 去除環境音或使用者運動等造成數據波動的正常因素</li>
+                            <li>數據標準化: 將不同來源或不同個體的數據轉換到相同的範圍</li>
+                            <li>基線校正: 去除因設備不穩定性造成的數據波動。</li><br>
+                        </ul>
+                    </li>
+                    <li><b>標註特徵</b>:<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp透過標註特徵可以凸顯特定的數據，幫助AI提升識別的精確度及提高計算效率。以心電圖為例，先透過濾波器將太高和太低頻的數據去除，再將整體數據透過微積分或平方等數學方式處理使其特徵更明顯並標示出來，以協助AI識別出波峰、波谷的位置，再藉此去計算兩波的間期、使用者的心率等數據資料。</li><br>
+                    <li><b>訓練模型</b>: 
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>監督學習</th>
+                            <th>非監督學習</th>
+                        </tr>
+                        <tr>
+                            <td><b>目標</b></td>
+                            <td>將大量數據分類</td>
+                            <td>將大量數據聚類或降維</td>
+                        </tr>
+                        <tr>
+                            <td><b>功能</b></td>
+                            <td>藉學習到的經驗，預測可能的輸出</td>
+                            <td>藉群集的集散程度判斷數據異常</td>
+                        </tr>
+                        <tr>
+                            <td><b>特徵</b></td>
+                            <td>對標註特徵依賴性高<br>準確性高</td>
+                            <td>數據不需標註特徵<br>可用降維將數據結果可視化</td>
+                        </tr>
+                        <tr>
+                            <td><b>應用實例</b></td>
+                            <td>判斷是否有心律不整<br>預測是否會有心血管疾病</td>
+                            <td>判斷心臟數據是否異常</td>
+                        </tr>
+                    </table><br>
+                    </li>
+                    <li><b>持續監控與增量訓練</b>:<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp模型訓練完後便可不斷蒐集新數據以做持續監控，並讓模型在檢測到異常時及時發出警報，平時則可將其數據和分析用於協助醫療診斷。另外偶爾也要對其進行增量訓練，由於新數據的不斷進入，可能使模型產生記憶衰退，讓模型忘記較老舊的數據，或是為了適應新的健康模式(如近年來心臟病風險普遍增加)，而準備一定數量的數據去讓模型熟悉並調整其原有參數。</li>
+                </ul>
+            </div>
+            <div class="right-column">
+                <h2>Kmeans</h2>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp一種把一堆資料點分成幾組的方法，透過讓每組的資料點彼此更接近、與其他組更遠，找到有點像「重心」的中心點。以幫助我們將人體監測數據自動分組，以辨識健康狀態模式或異常情況，提升遠程健康監控的精準性。</p>
+                <img src="Kmeans.png" alt="Kmeans picture" width="572.39" height="304.14">
+                <h2>挑戰</h2>
+                <p><b>噪聲的混入</b>:<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp實際取得的資訊常會有外在因素的干擾，以心電圖數據為例，使用者偶然的運動、傳感式裝置故障或周遭有其他設備干擾等都可能造成AI模型判斷產生誤差或偏差。</p>
+                <p><b>數據安全性</b>:<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp由於數據會上傳或儲存於雲端服務器，故資料可能遭到竊取或篡改，除了影響相關病患的診斷，也可能影響AI模型的訓練使其被誤導。</p>
+                <h2>解決方式</h2>
+                    <p><b>數據預處理</b>: 處理數據中的缺失值和異常值。<br>
+                        <ul class="timeline"><ul>
+                            <li>缺失值: 以平均數或中位數替代，若缺失比例過高，則將整組數據刪除。</li>
+                            <li>異常值: 以統計方法將極端數據刪除，以免造成誤判。</li>
+                        </ul></ul></p>
+                    <p><b>端對端加密</b>: 只有傳送和接收雙方可以取得解密後的資料，中間即使被他人截獲其也無法取得有用資訊。</p>
+                <h2>未來發展潛能</h2>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp隨著資料庫增大且不斷改進AI的判斷機制，可能除了即時監測還能預測短期內的可能症狀，達到預防性治療的效果。</p>
+            </div>
+        </div>
+        <hr class="divider">
+    </main>
+</body>
+</html>
